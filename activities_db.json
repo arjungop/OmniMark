@@ -1,0 +1,62 @@
+{
+  "activities": {
+    "de67bda2-bad": {
+      "id": "de67bda2-bad",
+      "deal_id": "7af1dec4-81a",
+      "company_id": "stripe",
+      "type": "deal_created",
+      "direction": "outbound",
+      "description": "Deal created: Stripe - Opportunity",
+      "outcome": "",
+      "duration_minutes": null,
+      "next_steps": "",
+      "logged_at": "2025-12-01T11:32:09.055062",
+      "logged_by": "arjungopal660@gmail.com"
+    },
+    "b40d0402-5bd": {
+      "id": "b40d0402-5bd",
+      "deal_id": "5405e75a-e7f",
+      "company_id": null,
+      "type": "deal_created",
+      "direction": "outbound",
+      "description": "Deal created: stripe - Opportunity",
+      "outcome": "",
+      "duration_minutes": null,
+      "next_steps": "",
+      "logged_at": "2025-12-01T11:33:09.601359",
+      "logged_by": "arjungopal660@gmail.com"
+    },
+    "cb96d163-e8d": {
+      "id": "cb96d163-e8d",
+      "deal_id": "ee36ccce-b0f",
+      "company_id": "fc_barcelona",
+      "type": "deal_created",
+      "direction": "outbound",
+      "description": "Deal created: Fc Barcelona - Opportunity",
+      "outcome": "",
+      "duration_minutes": null,
+      "next_steps": "",
+      "logged_at": "2025-12-01T12:06:25.364686",
+      "logged_by": "arjungopalanilkumar@gmail.com"
+    }
+  },
+  "by_deal": {
+    "7af1dec4-81a": [
+      "de67bda2-bad"
+    ],
+    "5405e75a-e7f": [
+      "b40d0402-5bd"
+    ],
+    "ee36ccce-b0f": [
+      "cb96d163-e8d"
+    ]
+  },
+  "by_company": {
+    "stripe": [
+      "de67bda2-bad"
+    ],
+    "fc_barcelona": [
+      "cb96d163-e8d"
+    ]
+  }
+}

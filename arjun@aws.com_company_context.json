@@ -1,0 +1,10 @@
+{
+  "company_name": "Amazon Web Services (AWS)",
+  "industry": "Cloud Computing Services",
+  "description": "AWS provides a comprehensive suite of cloud computing services, enabling businesses of all sizes to innovate, transform, and redefine their industries. From startups to enterprises, AWS offers the tools and infrastructure needed to power innovation and accelerate growth through solutions such as Artificial Intelligence, data storage, and more.",
+  "target_roles": "Chief Technology Officer (CTO),Chief Marketing Officer (CMO),Data Scientist,IT Director,Software Engineer",
+  "pain_points": "High infrastructure costs,Scalability limitations,Security concerns,Data management complexities,Keeping up with technological advancements",
+  "competitors": "Microsoft Azure,Google Cloud Platform (GCP),IBM Cloud",
+  "unique_value": "The largest and most mature cloud platform, offering the broadest and deepest set of services, a vast global infrastructure, and a proven track record of helping customers innovate and scale.",
+  "step": 3
+}

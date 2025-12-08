@@ -1,0 +1,152 @@
+{
+  "deals": {
+    "7af1dec4-81a": {
+      "id": "7af1dec4-81a",
+      "name": "Stripe - Opportunity",
+      "company_id": "stripe",
+      "company_name": "Stripe",
+      "contact_ids": [],
+      "stage": "qualified",
+      "pipeline": "default",
+      "value": 0,
+      "currency": "USD",
+      "probability": 0.2,
+      "expected_close_date": null,
+      "actual_close_date": null,
+      "win_reason": null,
+      "loss_reason": null,
+      "competitor": null,
+      "source": "intent_signal",
+      "owner": "arjungopal660@gmail.com",
+      "tags": [],
+      "notes": "",
+      "created_at": "2025-12-01T11:32:09.054325",
+      "updated_at": "2025-12-01T11:32:09.054332",
+      "stage_history": [
+        {
+          "stage": "qualified",
+          "entered_at": "2025-12-01T11:32:09.054334",
+          "moved_by": "arjungopal660@gmail.com"
+        }
+      ]
+    },
+    "5405e75a-e7f": {
+      "id": "5405e75a-e7f",
+      "name": "stripe - Opportunity",
+      "company_id": null,
+      "company_name": "stripe",
+      "contact_ids": [],
+      "stage": "meeting",
+      "pipeline": "default",
+      "value": 10,
+      "currency": "USD",
+      "probability": 0.4,
+      "expected_close_date": "2006-01-01",
+      "actual_close_date": null,
+      "win_reason": null,
+      "loss_reason": null,
+      "competitor": null,
+      "source": "outbound",
+      "owner": "arjungopal660@gmail.com",
+      "tags": [],
+      "notes": "",
+      "created_at": "2025-12-01T11:33:09.600544",
+      "updated_at": "2025-12-01T11:33:09.600556",
+      "stage_history": [
+        {
+          "stage": "meeting",
+          "entered_at": "2025-12-01T11:33:09.600559",
+          "moved_by": "arjungopal660@gmail.com"
+        }
+      ]
+    },
+    "ee36ccce-b0f": {
+      "id": "ee36ccce-b0f",
+      "name": "Fc Barcelona - Opportunity",
+      "company_id": "fc_barcelona",
+      "company_name": "Fc Barcelona",
+      "contact_ids": [],
+      "stage": "prospect",
+      "pipeline": "default",
+      "value": 0,
+      "currency": "USD",
+      "probability": 0.1,
+      "expected_close_date": null,
+      "actual_close_date": null,
+      "win_reason": null,
+      "loss_reason": null,
+      "competitor": null,
+      "source": "intent_signal",
+      "owner": "arjungopalanilkumar@gmail.com",
+      "tags": [],
+      "notes": "",
+      "created_at": "2025-12-01T12:06:25.363615",
+      "updated_at": "2025-12-01T12:06:25.363626",
+      "stage_history": [
+        {
+          "stage": "prospect",
+          "entered_at": "2025-12-01T12:06:25.363628",
+          "moved_by": "arjungopalanilkumar@gmail.com"
+        }
+      ]
+    }
+  },
+  "stages": {
+    "prospect": {
+      "id": "prospect",
+      "name": "Prospect",
+      "order": 1,
+      "probability": 0.1
+    },
+    "qualified": {
+      "id": "qualified",
+      "name": "Qualified",
+      "order": 2,
+      "probability": 0.2
+    },
+    "meeting": {
+      "id": "meeting",
+      "name": "Meeting Scheduled",
+      "order": 3,
+      "probability": 0.4
+    },
+    "proposal": {
+      "id": "proposal",
+      "name": "Proposal",
+      "order": 4,
+      "probability": 0.6
+    },
+    "negotiation": {
+      "id": "negotiation",
+      "name": "Negotiation",
+      "order": 5,
+      "probability": 0.8
+    },
+    "closed_won": {
+      "id": "closed_won",
+      "name": "Closed Won",
+      "order": 6,
+      "probability": 1.0
+    },
+    "closed_lost": {
+      "id": "closed_lost",
+      "name": "Closed Lost",
+      "order": 7,
+      "probability": 0.0
+    }
+  },
+  "pipelines": {
+    "default": {
+      "name": "Sales Pipeline",
+      "stages": [
+        "prospect",
+        "qualified",
+        "meeting",
+        "proposal",
+        "negotiation",
+        "closed_won",
+        "closed_lost"
+      ]
+    }
+  }
+}

@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="onboarding-container">
+    <div class="glass-panel" style="max-width: 800px; margin: 2rem auto;">
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="steps-indicator">
+                <span class="step active" data-step="1">1</span>
+                <span class="step" data-step="2">2</span>
+                <span class="step" data-step="3">3</span>
+            </div>
+        </div>
+
+        <form id="onboardingForm">
+            <!-- Step 1: Input -->
+            <div class="step-content active" id="step1">
+                <h2>🦎 Let's build your intelligence profile</h2>
+                <p>Better context = better results. Our AI will find opportunities that actually match your ideal customer.</p>
+
+                <div class="coaching-box">
+                    <div class="coaching-header">💡 Why this matters</div>
+                    <p>Companies with detailed context see <strong>40% higher response rates</strong> because the AI can personalize outreach to each prospect's situation.</p>
+                </div>
+
+                <div class="form-group" style="position: relative;">
+                    <label>Company Name</label>
+                    <input type="text" name="company_name" required placeholder="e.g. Acme Corp" autocomplete="off">
+                    <div id="suggestions" class="suggestions-dropdown hidden"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Company Website URL <span class="optional">(optional but recommended)</span></label>
+                    <input type="url" id="companyUrl" placeholder="https://example.com">
+                    <span class="field-hint">We'll auto-extract your industry, value prop, and competitors</span>
+                </div>
+
+                <div id="loadingAnalysis" class="hidden text-center" style="margin: 2rem 0;">
+                    <div class="skeleton-line"></div>
+                    <p style="color: var(--primary)">Analyzing your website...</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Identifying your industry, competitors, and ideal customers</p>
+                </div>
+
+                <div class="actions" style="justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary" onclick="analyzeAndNext()" id="analyzeBtn">
+                        Continue →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: ICP & Pitch -->
+            <div class="step-content hidden" id="step2">
+                <h2>🎯 Define Your Ideal Customer</h2>
+                <p>The more specific you are, the better opportunities we'll find.</p>
+
+                <div class="coaching-box">
+                    <div class="coaching-header">💡 Pro Tips for ICP</div>
+                    <ul class="coaching-list">
+                        <li><strong>Be specific:</strong> "VP of Sales at 50-200 person B2B SaaS" beats "sales leaders"</li>
+                        <li><strong>Include numbers:</strong> "saves 10 hours/week" is better than "saves time"</li>
+                        <li><strong>Name pain points:</strong> List the exact problems that make prospects say "yes"</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>Industry</label>
+                    <input type="text" name="industry" required placeholder="e.g. B2B SaaS, Healthcare Tech, FinTech">
+                </div>
+                <div class="form-group">
+                    <label>Elevator Pitch <span class="char-hint">(2-3 sentences)</span></label>
+                    <textarea name="description" rows="3" required placeholder="We help [target customer] solve [problem] by [solution], resulting in [outcome]."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Target Job Titles</label>
+                    <input type="text" name="target_roles" required placeholder="VP of Sales, Director of Marketing, Head of Growth">
+                    <span class="field-hint">Who are the decision makers and influencers?</span>
+                </div>
+                <div class="form-group">
+                    <label>Pain Points You Solve</label>
+                    <textarea name="pain_points" rows="4" required placeholder="• Spending 20+ hours/week on manual data entry&#10;• Missing quota due to bad lead quality&#10;• No visibility into pipeline health"></textarea>
+                    <span class="field-hint">Be specific - these become personalization hooks</span>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn btn-ghost" onclick="prevStep(2)">← Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next: Competitors →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Market Position -->
+            <div class="step-content hidden" id="step3">
+                <h2>⚔️ Competitive Positioning</h2>
+                <p>Understanding your competition helps us position you effectively.</p>
+
+                <div class="coaching-box">
+                    <div class="coaching-header">💡 Why competitors matter</div>
+                    <p>If prospects use a competitor, they already understand your category. The AI will craft messaging that differentiates you without bashing competitors.</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Top 3-5 Competitors</label>
+                    <input type="text" name="competitors" required placeholder="HubSpot, Salesforce, Outreach, SalesLoft">
+                    <span class="field-hint">Include direct and indirect competitors</span>
+                </div>
+                <div class="form-group">
+                    <label>What Makes You Different?</label>
+                    <textarea name="unique_value" rows="4" required placeholder="Unlike [competitor], we focus on [differentiator]. Our customers choose us because [reasons]. We're the only solution that [unique capability]."></textarea>
+                    <span class="field-hint">This becomes your positioning in outreach</span>
+                </div>
+
+                <div class="ready-box">
+                    <div class="ready-icon">🚀</div>
+                    <div class="ready-content">
+                        <strong>You're almost ready!</strong>
+                        <p>Once you complete setup, Chameleon will immediately start finding opportunities that match your ICP.</p>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn btn-ghost" onclick="prevStep(3)">← Back</button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="submitOnboarding()">
+                        Launch Chameleon 🦎
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .onboarding-container {
+        min-height: 100vh;
+        padding: 1rem;
+    }
+
+    .progress-container {
+        margin-bottom: 2rem;
+        position: relative;
+        padding: 0 2rem;
+    }
+
+    .progress-bar {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        z-index: 0;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        width: 0%;
+        transition: width 0.5s ease;
+    }
+
+    .steps-indicator {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+    }
+
+    .step {
+        width: 36px;
+        height: 36px;
+        background: var(--bg-dark);
+        border: 2px solid var(--glass-border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .step.active {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 0 15px var(--primary);
+    }
+
+    .step.completed {
+        border-color: #10b981;
+        background: #10b981;
+        color: white;
+    }
+
+    .step-content h2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .step-content > p {
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Coaching Box */
+    .coaching-box {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .coaching-header {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #10b981;
+    }
+
+    .coaching-box p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .coaching-list {
+        margin: 0.5rem 0 0 1rem;
+        padding: 0;
+    }
+
+    .coaching-list li {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    .coaching-list li strong {
+        color: var(--text-main);
+    }
+
+    /* Form Hints */
+    .field-hint {
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .optional {
+        font-weight: normal;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .char-hint {
+        font-weight: normal;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    /* Ready Box */
+    .ready-box {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+    }
+
+    .ready-icon {
+        font-size: 2.5rem;
+    }
+
+    .ready-content strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--primary);
+    }
+
+    .ready-content p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Actions */
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+        gap: 1rem;
+    }
+
+    .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    /* Suggestions */
+    .suggestions-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-dark);
+        border: 1px solid var(--glass-border);
+        border-radius: 8px;
+        margin-top: 4px;
+        z-index: 100;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .suggestion-item {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        border-bottom: 1px solid var(--glass-border);
+        transition: background 0.2s;
+    }
+
+    .suggestion-item:last-child {
+        border-bottom: none;
+    }
+
+    .suggestion-item:hover {
+        background: var(--glass-bg);
+    }
+
+    .suggestion-name {
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .suggestion-url {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .skeleton-line {
+        height: 4px;
+        background: var(--primary);
+        width: 100%;
+        margin-bottom: 1rem;
+        border-radius: 2px;
+        animation: loading 1s infinite ease-in-out;
+    }
+
+    @keyframes loading {
+        0% { transform: scaleX(0); transform-origin: left; }
+        50% { transform: scaleX(1); transform-origin: left; }
+        51% { transform: scaleX(1); transform-origin: right; }
+        100% { transform: scaleX(0); transform-origin: right; }
+    }
+</style>
+
+<script>
+    const nameInput = document.querySelector('input[name="company_name"]');
+    const suggestionsBox = document.getElementById('suggestions');
+    let debounceTimer;
+
+    nameInput?.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        const query = e.target.value;
+
+        if (query.length < 2) {
+            suggestionsBox.classList.add('hidden');
+            return;
+        }
+
+        debounceTimer = setTimeout(async () => {
+            try {
+                const response = await fetch('/api/search_companies', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query })
+                });
+                const result = await response.json();
+
+                if (result.status === 'success' && result.data && result.data.length > 0) {
+                    suggestionsBox.innerHTML = result.data.map(item => `
+                        <div class="suggestion-item" onclick="selectCompany('${item.name}', '${item.url || ''}')">
+                            <div class="suggestion-name">${item.name}</div>
+                            <div class="suggestion-url">${item.domain || ''}</div>
+                        </div>
+                    `).join('');
+                    suggestionsBox.classList.remove('hidden');
+                } else {
+                    suggestionsBox.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        }, 500);
+    });
+
+    function selectCompany(name, url) {
+        nameInput.value = name;
+        if (url) document.getElementById('companyUrl').value = url;
+        suggestionsBox.classList.add('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!nameInput?.contains(e.target) && !suggestionsBox?.contains(e.target)) {
+            suggestionsBox?.classList.add('hidden');
+        }
+    });
+</script>
+{% endblock %}
