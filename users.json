@@ -2,25 +2,25 @@
   "arjungopal660@gmail.com": {
     "name": "Arjungopal Anilkumar",
     "email": "arjungopal660@gmail.com",
-    "password": "757ac996f75f87d34d251a335b5dff8b1614842e5708ed7122cbfc7a027cc209",
+    "password": "REMOVED_USE_ENV_VARS",
     "created_at": "2025-12-01T19:44:16.065101"
   },
   "arjungopalanilkumar@gmail.com": {
     "name": "Arjungopal Anilkumar",
     "email": "arjungopalanilkumar@gmail.com",
-    "password": "757ac996f75f87d34d251a335b5dff8b1614842e5708ed7122cbfc7a027cc209",
+    "password": "REMOVED_USE_ENV_VARS",
     "created_at": "2025-12-01T20:24:22.065028"
   },
   "arjun@nike.com": {
     "name": "Arjungopal Anilkumar",
     "email": "arjun@nike.com",
-    "password": "2f6ce220ba7d233ea1d92b1595d69d4ea1c1c9a377fb135386bd388d5c45dd69",
+    "password": "REMOVED_USE_ENV_VARS",
     "created_at": "2025-12-01T23:22:58.669512"
   },
   "arjun@aws.com": {
     "name": "Arjun",
     "email": "arjun@aws.com",
-    "password": "821354cd9dae06fabc55d5610632239919479d5a86f3b26302667764f349e8a4",
+    "password": "REMOVED_USE_ENV_VARS",
     "created_at": "2025-12-01T23:40:06.577688"
   }
 }
