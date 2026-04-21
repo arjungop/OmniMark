@@ -902,7 +902,7 @@ class BookingLinkManager:
         # Add tracking if provided
         if tracking_id:
             separator = '&' if '?' in link else '?'
-            link = f"{link}{separator}utm_source=chameleon&utm_campaign={tracking_id}"
+            link = f"{link}{separator}utm_source=omnimark&utm_campaign={tracking_id}"
         
         # Track link generation
         if 'generated_links' not in self.data:

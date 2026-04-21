@@ -1,5 +1,5 @@
 """
-The Chameleon Intelligence Layer
+The OmniMark Intelligence Layer
 
 Not prompt engineering. Actual AI that:
 - Scores accounts based on learned patterns

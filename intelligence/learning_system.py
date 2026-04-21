@@ -1,6 +1,6 @@
 """
 CONTINUOUS LEARNING SYSTEM
-The system that makes Chameleon smarter over time.
+The system that makes OmniMark smarter over time.
 
 Unlike dumb chatbots that forget everything, this system:
 1. Tracks every email sent and outcome

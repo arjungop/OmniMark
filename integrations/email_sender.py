@@ -230,7 +230,7 @@ class SMTPSender(EmailSender):
                 msg['Reply-To'] = reply_to
             
             # Add custom header for tracking
-            msg['X-Chameleon-Tracking-ID'] = tracking_id
+            msg['X-OmniMark-Tracking-ID'] = tracking_id
             
             # Plain text part
             msg.attach(MIMEText(body, 'plain'))
@@ -549,7 +549,7 @@ class GmailSender(EmailSender):
             msg['Subject'] = subject
             if reply_to:
                 msg['Reply-To'] = reply_to
-            msg['X-Chameleon-Tracking-ID'] = tracking_id
+            msg['X-OmniMark-Tracking-ID'] = tracking_id
             
             # Plain text
             msg.attach(MIMEText(body, 'plain'))

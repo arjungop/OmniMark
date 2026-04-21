@@ -1,6 +1,6 @@
-# 🦎 The Chameleon - ABM Campaign Intelligence Platform
+# 🎯 The OmniMark - ABM Campaign Intelligence Platform
 
-> **AI-powered Account-Based Marketing platform that adapts to any business like a chameleon adapts to its environment**
+> **AI-powered Account-Based Marketing platform that adapts to any business like a omnimark adapts to its environment**
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1-green.svg)](https://flask.palletsprojects.com)
@@ -15,7 +15,7 @@ B2B marketers face a critical challenge: **creating highly personalized campaign
 
 ## 💡 Our Solution
 
-**The Chameleon** leverages AI to generate strategic, hyper-personalized ABM campaigns in minutes, not days. Like its namesake, it adapts to each target account's unique characteristics, industry, and pain points.
+**The OmniMark** leverages AI to generate strategic, hyper-personalized ABM campaigns in minutes, not days. Like its namesake, it adapts to each target account's unique characteristics, industry, and pain points.
 
 ### Key Features
 
@@ -96,8 +96,8 @@ B2B marketers face a critical challenge: **creating highly personalized campaign
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/chameleon-abm.git
-cd chameleon-abm
+git clone https://github.com/yourusername/omnimark-abm.git
+cd omnimark-abm
 
 # Create virtual environment
 python -m venv venv
@@ -139,7 +139,7 @@ The app will be available at `http://localhost:5001`
 
 ## 🎥 Demo Video
 
-[Watch The Chameleon in Action](link-to-demo-video)
+[Watch The OmniMark in Action](link-to-demo-video)
 
 ## 🔧 Technical Stack
 
@@ -183,4 +183,4 @@ Built with ❤️ for the Linkenite Hackathon
 
 ---
 
-**The Chameleon** - *Adapt. Personalize. Convert.* 🦎
+**The OmniMark** - *Adapt. Personalize. Convert.* 🎯

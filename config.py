@@ -2,7 +2,7 @@ import os
 
 class Config:
     # Flask Config
-    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'chameleon-2025-unified-app-secret')
+    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'omnimark-2025-unified-app-secret')
     
     # API Keys
     GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyBr5gXXSCd8aYeL1wcTKIcZ9TrDYbhnkVI')
@@ -15,7 +15,7 @@ class Config:
 
     # Data Files
     USERS_FILE = "users.json"
-    DATA_FILE = "chameleon_data.json"
+    DATA_FILE = "omnimark_data.json"
     COMPANIES_FILE = "companies_db.json"
     RELATIONSHIPS_FILE = "relationships_db.json"
     HISTORY_FILE = "history_db.json"

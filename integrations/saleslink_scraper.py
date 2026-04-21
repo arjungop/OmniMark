@@ -1,38 +1,38 @@
 """
-SalesLink Integration for The Chameleon
+SalesLink Integration for The OmniMark
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-SALESLINK AS PART OF THE CHAMELEON STACK
+SALESLINK AS PART OF THE OMNIMARK STACK
 SalesLink (saleslink.linkenite.com) is a modular multi-channel outreach automation platform
-that The Chameleon integrates with to provide:
+that The OmniMark integrates with to provide:
 
 ✅ MULTI-CHANNEL OUTREACH
    - Use SalesLink's proven email + LinkedIn + other channel automation
    - Leverage SalesLink's deliverability & infrastructure
    - Coordinate campaigns across multiple touchpoints
 
-✅ ENHANCED WITH CHAMELEON AI
-   - SalesLink handles delivery → Chameleon generates AI-personalized content
-   - SalesLink tracks engagement → Chameleon provides intelligence & scoring
-   - SalesLink manages sequences → Chameleon optimizes with predictive analytics
+✅ ENHANCED WITH OMNIMARK AI
+   - SalesLink handles delivery → OmniMark generates AI-personalized content
+   - SalesLink tracks engagement → OmniMark provides intelligence & scoring
+   - SalesLink manages sequences → OmniMark optimizes with predictive analytics
 
 ✅ UNIFIED WORKFLOW
-   - Research companies in Chameleon (AI + web scraping)
-   - Generate personalized campaigns in Chameleon (Gemini + FLUX)
+   - Research companies in OmniMark (AI + web scraping)
+   - Generate personalized campaigns in OmniMark (Gemini + FLUX)
    - Execute & track via SalesLink (multi-channel automation)
-   - Analyze & optimize in Chameleon (intelligence engine)
+   - Analyze & optimize in OmniMark (intelligence engine)
 
 HOW THE INTEGRATION WORKS:
-1. Chameleon researches targets & generates AI-personalized content
+1. OmniMark researches targets & generates AI-personalized content
 2. Push campaigns to SalesLink for multi-channel execution
 3. SalesLink handles email/LinkedIn/SMS delivery & tracking
-4. Sync engagement data back to Chameleon for account scoring
-5. Chameleon's AI optimizes future campaigns based on SalesLink performance
+4. Sync engagement data back to OmniMark for account scoring
+5. OmniMark's AI optimizes future campaigns based on SalesLink performance
 
 BENEFITS OF INTEGRATION:
-🤖 AI Content Generation (Chameleon) + Proven Delivery (SalesLink)
-📊 Advanced Intelligence (Chameleon) + Multi-Channel Reach (SalesLink)
-🎯 Smart Targeting (Chameleon) + Reliable Automation (SalesLink)
+🤖 AI Content Generation (OmniMark) + Proven Delivery (SalesLink)
+📊 Advanced Intelligence (OmniMark) + Multi-Channel Reach (SalesLink)
+🎯 Smart Targeting (OmniMark) + Reliable Automation (SalesLink)
 💡 Best of both worlds: AI-powered personalization + enterprise-grade execution
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
@@ -47,11 +47,11 @@ from datetime import datetime
 
 class SalesLinkScraper:
     """
-    SalesLink Integration Client for The Chameleon
+    SalesLink Integration Client for The OmniMark
     
-    Use SalesLink as part of your Chameleon outreach stack:
+    Use SalesLink as part of your OmniMark outreach stack:
     
-    CHAMELEON'S ROLE (AI & Intelligence):
+    OMNIMARK'S ROLE (AI & Intelligence):
     - Research companies (web scraping + AI analysis)
     - Generate personalized content (Gemini 2.0 Flash)
     - Create visual assets (FLUX 1.1 Pro)
@@ -66,17 +66,17 @@ class SalesLinkScraper:
     - CRM & workflow management
     
     INTEGRATED WORKFLOW:
-    1. Chameleon AI generates personalized campaign
+    1. OmniMark AI generates personalized campaign
     2. Push to SalesLink for multi-channel execution
     3. SalesLink delivers & tracks engagement
-    4. Sync data back to Chameleon for intelligence analysis
-    5. Chameleon optimizes next campaigns based on results
+    4. Sync data back to OmniMark for intelligence analysis
+    5. OmniMark optimizes next campaigns based on results
     
     Methods:
-    - sync_contacts_to_saleslink() - Push Chameleon contacts to SalesLink
+    - sync_contacts_to_saleslink() - Push OmniMark contacts to SalesLink
     - push_campaign_to_saleslink() - Execute AI-generated campaign via SalesLink
-    - sync_engagement_data() - Pull SalesLink tracking back to Chameleon
-    - get_campaign_performance() - Analyze SalesLink results in Chameleon
+    - sync_engagement_data() - Pull SalesLink tracking back to OmniMark
+    - get_campaign_performance() - Analyze SalesLink results in OmniMark
     """
     
     def __init__(self, username: str = None, password: str = None):
@@ -188,16 +188,16 @@ class SalesLinkScraper:
     
     def get_contacts(self, limit: int = 100, include_engagement: bool = True) -> List[Dict]:
         """
-        Sync contacts from SalesLink to Chameleon
+        Sync contacts from SalesLink to OmniMark
         
-        Use case: Import your SalesLink contact database into Chameleon for:
+        Use case: Import your SalesLink contact database into OmniMark for:
         - AI-powered account scoring
         - Predictive intent analysis
         - Unified CRM across both platforms
         
         The integration maintains bidirectional sync:
-        - SalesLink → Chameleon: Import contacts with engagement history
-        - Chameleon → SalesLink: Push new researched contacts for outreach
+        - SalesLink → OmniMark: Import contacts with engagement history
+        - OmniMark → SalesLink: Push new researched contacts for outreach
         
         Args:
             limit: Maximum number of contacts to sync
@@ -218,7 +218,7 @@ class SalesLinkScraper:
                     'replied': False,
                     'last_contacted': '2025-11-15'
                 },
-                'chameleon_score': 0  # Will be calculated by Chameleon AI
+                'omnimark_score': 0  # Will be calculated by OmniMark AI
             }
         """
         if not self.is_logged_in:
@@ -314,7 +314,7 @@ class SalesLinkScraper:
     
     def get_campaign_templates(self) -> List[Dict]:
         """
-        Sync SalesLink campaign templates to Chameleon
+        Sync SalesLink campaign templates to OmniMark
         
         Integrated workflow:
         1. Pull proven templates from SalesLink
@@ -324,7 +324,7 @@ class SalesLinkScraper:
         
         This allows you to:
         - Keep using SalesLink's proven delivery infrastructure
-        - Enhance templates with Chameleon's AI personalization
+        - Enhance templates with OmniMark's AI personalization
         - Generate custom visuals for each prospect
         - Maintain consistency across both platforms
         
@@ -340,7 +340,7 @@ class SalesLinkScraper:
                     'open_rate': 45.2,
                     'reply_rate': 8.5
                 },
-                'chameleon_enhancements': [
+                'omnimark_enhancements': [
                     'Add Gemini personalization',
                     'Generate FLUX hero image',
                     'Inject company-specific talking points'
@@ -461,7 +461,7 @@ class SalesLinkScraper:
     
     def get_migration_summary(self) -> Dict:
         """
-        Generate a complete migration report from SalesLink to The Chameleon
+        Generate a complete migration report from SalesLink to The OmniMark
         
         What this does:
         - Analyzes your entire SalesLink workspace
@@ -477,7 +477,7 @@ class SalesLinkScraper:
                 'avg_open_rate': 42.3,
                 'avg_reply_rate': 6.8,
                 'estimated_monthly_cost': 149,  # Current SalesLink cost
-                'savings_by_migrating': 149,     # Save $149/month with free Chameleon
+                'savings_by_migrating': 149,     # Save $149/month with free OmniMark
                 'migration_value': {
                     'contacts_to_import': 1250,
                     'templates_to_enhance': 12,   # AI-enhance with Gemini
@@ -505,16 +505,16 @@ class SalesLinkScraper:
                     'combined_platform_benefits': [
                         'SalesLink multi-channel delivery + Gemini 2.0 personalization',
                         'Proven templates + FLUX visual generation',
-                        'SalesLink tracking + Chameleon intelligence engine',
+                        'SalesLink tracking + OmniMark intelligence engine',
                         'Enterprise deliverability + AI account scoring'
                     ]
                 },
                 'recommended_integration_workflow': (
-                    f"1. Sync {len(contacts)} SalesLink contacts to Chameleon for AI research\n"
+                    f"1. Sync {len(contacts)} SalesLink contacts to OmniMark for AI research\n"
                     f"2. AI-enhance your {len(templates)} templates with Gemini personalization\n"
                     "3. Generate FLUX visuals for top-performing campaigns\n"
                     "4. Push enhanced campaigns back to SalesLink for execution\n"
-                    "5. Sync engagement data back to Chameleon for optimization\n"
+                    "5. Sync engagement data back to OmniMark for optimization\n"
                     "6. Use unified analytics to track AI impact on SalesLink performance"
                 )
             }
@@ -571,13 +571,13 @@ class SalesLinkScraper:
 # USAGE EXAMPLES
 # ============================================================================
 
-def integrate_saleslink_with_chameleon():
+def integrate_saleslink_with_omnimark():
     """
-    Complete integration guide: SalesLink + The Chameleon
+    Complete integration guide: SalesLink + The OmniMark
     
     INTEGRATION BENEFITS:
     ✅ Keep SalesLink's proven multi-channel delivery (email + LinkedIn + SMS)
-    ✅ Add Chameleon's AI personalization (Gemini 2.0 Flash)
+    ✅ Add OmniMark's AI personalization (Gemini 2.0 Flash)
     ✅ Add visual content generation (FLUX 1.1 Pro)
     ✅ Unified analytics combining both platforms
     ✅ AI-powered account scoring and intent detection
@@ -589,7 +589,7 @@ def integrate_saleslink_with_chameleon():
     ✅ Behavioral tracking and engagement scoring
     ✅ Proven workflows and templates
     
-    WHAT CHAMELEON ADDS:
+    WHAT OMNIMARK ADDS:
     🤖 AI-powered personalization at scale
     🎨 Automated visual content generation
     📊 Predictive account scoring and intent detection
@@ -597,7 +597,7 @@ def integrate_saleslink_with_chameleon():
     🔄 Bidirectional sync for unified workflow
     """
     
-    print("🦎 THE CHAMELEON + SALESLINK INTEGRATION")
+    print("🎯 THE OMNIMARK + SALESLINK INTEGRATION")
     print("=" * 60)
     
     # 1. Initialize scraper
@@ -621,11 +621,11 @@ def integrate_saleslink_with_chameleon():
     print(f"   High-Intent Contacts: {summary.get('high_intent_contacts', 0)}")
     print(f"\n🔄 INTEGRATION BENEFITS")
     print(f"   SalesLink: Proven delivery + multi-channel automation")
-    print(f"   Chameleon: AI intelligence + visual content generation")
+    print(f"   OmniMark: AI intelligence + visual content generation")
     print(f"   Result: Best-of-both-worlds unified platform")
     
     # 4. Sync contacts
-    print("\n📥 Syncing contacts to Chameleon...")
+    print("\n📥 Syncing contacts to OmniMark...")
     contacts = scraper.get_contacts(limit=9999, include_engagement=True)
     scraper.export_to_json(contacts, "saleslink_contacts_sync.json")
     
@@ -645,7 +645,7 @@ def integrate_saleslink_with_chameleon():
     scraper.logout()
     
     print("\n✅ Integration sync completed!")
-    print("🚀 Use Chameleon's AI to enhance, then execute via SalesLink!")
+    print("🚀 Use OmniMark's AI to enhance, then execute via SalesLink!")
 
 
 def example_usage():
@@ -673,18 +673,18 @@ def example_usage():
         scraper.logout()
 
 
-def integrate_with_chameleon(username: str, password: str) -> Dict:
+def integrate_with_omnimark(username: str, password: str) -> Dict:
     """
-    One-click SalesLink + Chameleon integration sync
+    One-click SalesLink + OmniMark integration sync
     
-    This function is called by The Chameleon's API to:
-    1. Sync SalesLink contacts with engagement data to Chameleon
+    This function is called by The OmniMark's API to:
+    1. Sync SalesLink contacts with engagement data to OmniMark
     2. Pull proven templates for AI enhancement
     3. Generate integration report showing combined platform benefits
     
     Integration workflow:
     - SalesLink provides: Multi-channel execution, deliverability, tracking
-    - Chameleon provides: AI personalization, visual generation, intelligence
+    - OmniMark provides: AI personalization, visual generation, intelligence
     - Sync enables: Unified workflow leveraging both platforms' strengths
     
     Args:
@@ -700,7 +700,7 @@ def integrate_with_chameleon(username: str, password: str) -> Dict:
                 'contacts_synced': 1250,
                 'templates_available': 35,
                 'integration_benefits': [
-                    'SalesLink delivery + Chameleon AI',
+                    'SalesLink delivery + OmniMark AI',
                     'Proven automation + Intelligence layer',
                     'Unified analytics across both platforms'
                 ]
@@ -729,7 +729,7 @@ def integrate_with_chameleon(username: str, password: str) -> Dict:
         "templates": templates,
         "integration_summary": summary,
         "next_steps": [
-            "Sync contacts to Chameleon for AI research & scoring",
+            "Sync contacts to OmniMark for AI research & scoring",
             "AI-enhance templates with Gemini 2.0 + FLUX visuals",
             "Push enhanced campaigns to SalesLink for execution",
             "Monitor performance in unified analytics dashboard",

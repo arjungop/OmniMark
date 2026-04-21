@@ -1,9 +1,9 @@
 """
-SalesLink ↔ Chameleon Synchronization Manager
+SalesLink ↔ OmniMark Synchronization Manager
 
 PRODUCTION-GRADE INTEGRATION LAYER
 
-This module handles all the complex synchronization logic between SalesLink and Chameleon,
+This module handles all the complex synchronization logic between SalesLink and OmniMark,
 addressing critical integration challenges:
 
 1. DATA MAPPING & SCHEMA ALIGNMENT
@@ -36,7 +36,7 @@ addressing critical integration challenges:
    - Data lineage tracking
    - Rollback capabilities
 
-Author: The Chameleon Team
+Author: The OmniMark Team
 Version: 1.0.0
 Last Updated: 2025-12-01
 """
@@ -88,7 +88,7 @@ class ErrorCategory(Enum):
 class ConflictResolution(Enum):
     """Strategy for handling data conflicts"""
     SALESLINK_WINS = "saleslink_wins"  # SalesLink data is source of truth
-    CHAMELEON_WINS = "chameleon_wins"  # Chameleon data is source of truth
+    OMNIMARK_WINS = "omnimark_wins"  # OmniMark data is source of truth
     MERGE_LATEST = "merge_latest"  # Use most recent timestamp
     MANUAL = "manual"  # Queue for human review
 
@@ -111,15 +111,15 @@ class ContactMapping:
     """
     Unified contact identifier across platforms
     
-    Ensures consistent contact tracking between SalesLink and Chameleon
+    Ensures consistent contact tracking between SalesLink and OmniMark
     """
-    chameleon_id: str  # UUID in Chameleon/SheetDB
+    omnimark_id: str  # UUID in OmniMark/SheetDB
     saleslink_id: Optional[str]  # ID in SalesLink (if exists)
     email: str  # Primary identifier
     email_hash: str  # SHA256 hash for privacy
     first_seen: str  # ISO timestamp
     last_synced: str  # ISO timestamp
-    sync_direction: str  # "saleslink_to_chameleon" or "chameleon_to_saleslink"
+    sync_direction: str  # "saleslink_to_omnimark" or "omnimark_to_saleslink"
     data_fingerprint: str  # Hash of contact data for change detection
     compliance_status: str  # ComplianceStatus enum value
     consent_date: Optional[str]  # ISO timestamp of opt-in
@@ -137,12 +137,12 @@ class CampaignMapping:
     """
     Campaign identifier mapping between platforms
     """
-    chameleon_campaign_id: str
+    omnimark_campaign_id: str
     saleslink_campaign_id: Optional[str]
     template_version: str  # Semantic version (e.g., "1.2.3")
     created_at: str
     last_modified: str
-    ai_generated: bool  # True if Chameleon generated the content
+    ai_generated: bool  # True if OmniMark generated the content
     saleslink_sent: bool  # True if sent via SalesLink
     performance_synced: bool  # True if metrics synced back
     template_fingerprint: str  # Hash for version tracking
@@ -175,7 +175,7 @@ class EngagementMetrics:
     """
     contact_id: str
     campaign_id: str
-    platform: str  # "saleslink" or "chameleon"
+    platform: str  # "saleslink" or "omnimark"
     
     # Email metrics
     email_sent: bool = False
@@ -205,18 +205,18 @@ class EngagementMetrics:
     
     # Derived scores
     engagement_score: float = 0.0  # 0-100
-    intent_score: float = 0.0  # 0-100 (AI-calculated in Chameleon)
+    intent_score: float = 0.0  # 0-100 (AI-calculated in OmniMark)
 
 
 # ============================================================================
-# SALESLINK ↔ CHAMELEON SYNC MANAGER
+# SALESLINK ↔ OMNIMARK SYNC MANAGER
 # ============================================================================
 
 class SalesLinkSyncManager:
     """
     Production-grade synchronization manager
     
-    Handles bidirectional sync between SalesLink and Chameleon with:
+    Handles bidirectional sync between SalesLink and OmniMark with:
     - Data mapping and normalization
     - Error handling and retries
     - Compliance validation
@@ -235,7 +235,7 @@ class SalesLinkSyncManager:
         
         Args:
             saleslink_scraper: Authenticated SalesLinkScraper instance
-            sheetdb_crm: SheetDBCRM instance for Chameleon data
+            sheetdb_crm: SheetDBCRM instance for OmniMark data
             max_retries: Maximum retry attempts for failed operations
             retry_delay: Initial delay in seconds (exponential backoff)
             enable_rollback: Enable transaction rollback on failure
@@ -274,14 +274,14 @@ class SalesLinkSyncManager:
         Normalize contact data from different platforms
         
         Args:
-            contact: Raw contact dict from SalesLink or Chameleon
-            source: "saleslink" or "chameleon"
+            contact: Raw contact dict from SalesLink or OmniMark
+            source: "saleslink" or "omnimark"
         
         Returns:
             Normalized contact dict with standard schema
         """
         if source == "saleslink":
-            # Map SalesLink fields to Chameleon schema
+            # Map SalesLink fields to OmniMark schema
             normalized = {
                 'email': contact.get('email', '').lower().strip(),
                 'first_name': contact.get('first_name', ''),
@@ -298,7 +298,7 @@ class SalesLinkSyncManager:
                 'imported_at': datetime.now().isoformat()
             }
         else:
-            # Chameleon data is already normalized
+            # OmniMark data is already normalized
             normalized = contact.copy()
             normalized['email'] = contact.get('email', '').lower().strip()
         
@@ -317,32 +317,32 @@ class SalesLinkSyncManager:
         return normalized
     
     def _create_contact_mapping(self, 
-                                chameleon_contact: Dict, 
+                                omnimark_contact: Dict, 
                                 saleslink_contact: Optional[Dict] = None) -> ContactMapping:
         """
         Create bidirectional contact mapping
         
         Args:
-            chameleon_contact: Contact from Chameleon/SheetDB
+            omnimark_contact: Contact from OmniMark/SheetDB
             saleslink_contact: Corresponding contact from SalesLink (if exists)
         
         Returns:
             ContactMapping object
         """
-        email = chameleon_contact.get('email', '').lower().strip()
+        email = omnimark_contact.get('email', '').lower().strip()
         
         mapping = ContactMapping(
-            chameleon_id=chameleon_contact.get('id', chameleon_contact.get('email')),
+            omnimark_id=omnimark_contact.get('id', omnimark_contact.get('email')),
             saleslink_id=saleslink_contact.get('id') if saleslink_contact else None,
             email=email,
             email_hash=hashlib.sha256(email.encode()).hexdigest(),
-            first_seen=chameleon_contact.get('created_at', datetime.now().isoformat()),
+            first_seen=omnimark_contact.get('created_at', datetime.now().isoformat()),
             last_synced=datetime.now().isoformat(),
             sync_direction="bidirectional",
-            data_fingerprint=chameleon_contact.get('data_fingerprint', ''),
+            data_fingerprint=omnimark_contact.get('data_fingerprint', ''),
             compliance_status=ComplianceStatus.VALID.value,  # Will be validated
-            consent_date=chameleon_contact.get('consent_date'),
-            consent_source=chameleon_contact.get('consent_source'),
+            consent_date=omnimark_contact.get('consent_date'),
+            consent_source=omnimark_contact.get('consent_source'),
             suppression_reason=None
         )
         
@@ -545,14 +545,14 @@ class SalesLinkSyncManager:
                                      limit: int = 1000,
                                      conflict_strategy: ConflictResolution = ConflictResolution.MERGE_LATEST) -> SyncOperation:
         """
-        Sync contacts from SalesLink to Chameleon
+        Sync contacts from SalesLink to OmniMark
         
         Workflow:
         1. Fetch contacts from SalesLink (with engagement data)
         2. Validate compliance for each contact
-        3. Check for existing contacts in Chameleon (detect conflicts)
+        3. Check for existing contacts in OmniMark (detect conflicts)
         4. Resolve conflicts based on strategy
-        5. Create/update contacts in Chameleon
+        5. Create/update contacts in OmniMark
         6. Create contact mappings
         7. Log sync operation
         
@@ -565,7 +565,7 @@ class SalesLinkSyncManager:
         """
         operation = SyncOperation(
             operation_id=f"sync_contacts_sl2ch_{int(time.time())}",
-            operation_type="contact_sync_saleslink_to_chameleon",
+            operation_type="contact_sync_saleslink_to_omnimark",
             status=SyncStatus.IN_PROGRESS.value,
             started_at=datetime.now().isoformat(),
             completed_at=None,
@@ -580,7 +580,7 @@ class SalesLinkSyncManager:
         )
         
         try:
-            logger.info(f"🔄 Starting contact sync: SalesLink → Chameleon (limit={limit})")
+            logger.info(f"🔄 Starting contact sync: SalesLink → OmniMark (limit={limit})")
             
             # Check circuit breaker
             if not self._check_circuit_breaker('saleslink_api'):
@@ -626,7 +626,7 @@ class SalesLinkSyncManager:
                         operation.records_failed += 1
                         continue
                     
-                    # Check for existing contact in Chameleon
+                    # Check for existing contact in OmniMark
                     existing = self.crm.get_contacts(filters={'email': normalized['email']})
                     
                     if existing:
@@ -636,8 +636,8 @@ class SalesLinkSyncManager:
                         if conflict_strategy == ConflictResolution.SALESLINK_WINS:
                             # Update with SalesLink data
                             merged = normalized
-                        elif conflict_strategy == ConflictResolution.CHAMELEON_WINS:
-                            # Keep Chameleon data, only update engagement
+                        elif conflict_strategy == ConflictResolution.OMNIMARK_WINS:
+                            # Keep OmniMark data, only update engagement
                             merged = existing_contact
                             merged['saleslink_engagement'] = normalized.get('saleslink_engagement', {})
                         else:  # MERGE_LATEST
@@ -649,12 +649,12 @@ class SalesLinkSyncManager:
                             })
                             merged['saleslink_engagement'] = normalized.get('saleslink_engagement', {})
                         
-                        # Update in Chameleon
+                        # Update in OmniMark
                         self.crm.update_contact(existing_contact['id'], merged)
                         logger.info(f"✅ Updated contact: {normalized['email']}")
                     
                     else:
-                        # New contact - add to Chameleon
+                        # New contact - add to OmniMark
                         self.crm.add_contact(normalized)
                         logger.info(f"✅ Added new contact: {normalized['email']}")
                     
@@ -691,13 +691,13 @@ class SalesLinkSyncManager:
         return operation
     
     def push_campaign_to_saleslink(self, 
-                                   chameleon_campaign_id: str,
+                                   omnimark_campaign_id: str,
                                    target_contacts: List[str]) -> SyncOperation:
         """
-        Push AI-generated campaign from Chameleon to SalesLink for execution
+        Push AI-generated campaign from OmniMark to SalesLink for execution
         
         Workflow:
-        1. Fetch campaign from Chameleon (with AI-generated content)
+        1. Fetch campaign from OmniMark (with AI-generated content)
         2. Validate campaign content (spam check, compliance)
         3. Map contact IDs to SalesLink
         4. Create campaign in SalesLink
@@ -706,7 +706,7 @@ class SalesLinkSyncManager:
         7. Log operation
         
         Args:
-            chameleon_campaign_id: Campaign ID in Chameleon
+            omnimark_campaign_id: Campaign ID in OmniMark
             target_contacts: List of contact emails/IDs
         
         Returns:
@@ -714,7 +714,7 @@ class SalesLinkSyncManager:
         """
         operation = SyncOperation(
             operation_id=f"push_campaign_ch2sl_{int(time.time())}",
-            operation_type="campaign_push_chameleon_to_saleslink",
+            operation_type="campaign_push_omnimark_to_saleslink",
             status=SyncStatus.IN_PROGRESS.value,
             started_at=datetime.now().isoformat(),
             completed_at=None,
@@ -726,17 +726,17 @@ class SalesLinkSyncManager:
             retry_count=0,
             rollback_performed=False,
             metadata={
-                'chameleon_campaign_id': chameleon_campaign_id,
+                'omnimark_campaign_id': omnimark_campaign_id,
                 'target_count': len(target_contacts)
             }
         )
         
         try:
-            logger.info(f"🚀 Pushing campaign {chameleon_campaign_id} to SalesLink")
+            logger.info(f"🚀 Pushing campaign {omnimark_campaign_id} to SalesLink")
             
             # TODO: Implement campaign push logic
             # This would involve:
-            # 1. Fetch campaign details from Chameleon
+            # 1. Fetch campaign details from OmniMark
             # 2. Validate content (spam score, compliance)
             # 3. Create campaign in SalesLink via API
             # 4. Map contacts and add to campaign
@@ -759,9 +759,9 @@ class SalesLinkSyncManager:
     def sync_engagement_from_saleslink(self, 
                                        campaign_id: Optional[str] = None) -> SyncOperation:
         """
-        Sync engagement metrics from SalesLink back to Chameleon
+        Sync engagement metrics from SalesLink back to OmniMark
         
-        This enables Chameleon's AI to:
+        This enables OmniMark's AI to:
         - Learn from SalesLink execution results
         - Optimize future campaigns
         - Score accounts based on actual engagement
@@ -774,7 +774,7 @@ class SalesLinkSyncManager:
         """
         operation = SyncOperation(
             operation_id=f"sync_engagement_sl2ch_{int(time.time())}",
-            operation_type="engagement_sync_saleslink_to_chameleon",
+            operation_type="engagement_sync_saleslink_to_omnimark",
             status=SyncStatus.IN_PROGRESS.value,
             started_at=datetime.now().isoformat(),
             completed_at=None,
@@ -795,7 +795,7 @@ class SalesLinkSyncManager:
             # This would involve:
             # 1. Fetch engagement data from SalesLink API
             # 2. Normalize metrics to EngagementMetrics schema
-            # 3. Update contact engagement in Chameleon
+            # 3. Update contact engagement in OmniMark
             # 4. Trigger AI re-scoring based on new engagement
             
             logger.warning("⚠️ Engagement sync not yet implemented - requires SalesLink API")
